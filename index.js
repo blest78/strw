@@ -5,11 +5,11 @@ const app = express();
 app.use(express.json());
 
 const subDistributors = [
-'https://timpo.onrender.com',
-'https://hvi1.onrender.com',
-'https://api9-nqqm.onrender.com',
-'https://hing.onrender.com',
-'https://pomb.onrender.com',
+'https://timpo.onrender.com/forward-requests',
+'https://hvi1.onrender.com/forward-requests',
+'https://api9-nqqm.onrender.com/forward-requests',
+'https://hing.onrender.com/forward-requests',
+'https://pomb.onrender.com/forward-requests',
 ];
 
 app.post('/forward-requests', (req, res) => {
