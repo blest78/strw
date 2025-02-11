@@ -21,12 +21,26 @@ app.post('/forward-requests', (req, res) => {
 
   const promises = subDistributors.map(url =>
     axios.post(url, { accessToken })
+      .then(response => ({
+        url,
+        status: response.status,
+        data: response.data,
+      }))
+      .catch(err => ({
+        url,
+        error: err.message,
+        status: err.response ? err.response.status : 'Unknown',
+        data: err.response ? err.response.data : 'No response data',
+      }))
   );
 
   Promise.all(promises)
-    .then(() => res.status(200).send('Requests forwarded by main distributor'))
+    .then(results => {
+      console.log('Results:', results);
+      res.status(200).send('Requests forwarded by main distributor');
+    })
     .catch(err => {
-      console.error(err);
+      console.error('Error occurred while forwarding requests:', err);
       res.status(500).send('Error occurred while forwarding requests');
     });
 });
